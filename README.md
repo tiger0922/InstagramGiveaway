@@ -3,6 +3,9 @@
 ### Deploy DynamoDB
 - Using Docker: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html
 
+### NoSQL Workbench
+- Download: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html
+
 ### DynamoDB SDK
 - Java: https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-dynamodb.html
 
