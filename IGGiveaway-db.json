@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "Min-Han Tsai",
     "DateCreated": "Feb 07, 2022, 04:04 PM",
-    "DateLastModified": "Feb 23, 2022, 09:52 AM",
+    "DateLastModified": "Mar 01, 2022, 12:42 AM",
     "Description": "Database for instagram giveaways",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -25,6 +25,21 @@
         {
           "AttributeName": "Followers",
           "AttributeType": "SS"
+        }
+      ],
+      "TableData": [
+        {
+          "AccountName": {
+            "S": "dummy-account"
+          },
+          "AccountId": {
+            "S": "dummy"
+          },
+          "Followers": {
+            "SS": [
+              "dummy-account"
+            ]
+          }
         }
       ],
       "DataAccess": {
@@ -78,6 +93,24 @@
         {
           "AttributeName": "Commenters",
           "AttributeType": "SS"
+        }
+      ],
+      "TableData": [
+        {
+          "PostId": {
+            "S": "dummy"
+          },
+          "AccountId": {
+            "S": "dummy"
+          },
+          "PostURL": {
+            "S": "dummy"
+          },
+          "Commenters": {
+            "SS": [
+              "dummy-account"
+            ]
+          }
         }
       ],
       "DataAccess": {
@@ -143,6 +176,28 @@
         {
           "AttributeName": "Timestamp",
           "AttributeType": "N"
+        }
+      ],
+      "TableData": [
+        {
+          "UUID": {
+            "S": "dummy"
+          },
+          "Account": {
+            "S": "dummy-account"
+          },
+          "PostId": {
+            "S": "dummy"
+          },
+          "Content": {
+            "S": "dummy"
+          },
+          "Follows": {
+            "S": "dummy-account"
+          },
+          "PostURL": {
+            "S": "dummy"
+          }
         }
       ],
       "DataAccess": {
