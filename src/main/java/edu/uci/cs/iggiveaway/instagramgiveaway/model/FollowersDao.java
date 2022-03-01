@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class FollowersDao {
     public static Followers getItem(DynamoDbEnhancedClient enhancedClient, String keyValue) {
         try {
-            System.out.println(TableSchema.fromBean(Followers.class).attributeNames());
             //Create a DynamoDbTable object
             DynamoDbTable<Followers> mappedTable = enhancedClient.table("Followers", TableSchema.fromBean(Followers.class));
 
