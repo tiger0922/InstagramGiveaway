@@ -3,76 +3,12 @@
   "ModelMetadata": {
     "Author": "Min-Han Tsai",
     "DateCreated": "Feb 07, 2022, 04:04 PM",
-    "DateLastModified": "Mar 01, 2022, 12:42 AM",
+    "DateLastModified": "Mar 09, 2022, 09:46 PM",
     "Description": "Database for instagram giveaways",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
   },
   "DataModel": [
-    {
-      "TableName": "Followers",
-      "KeyAttributes": {
-        "PartitionKey": {
-          "AttributeName": "AccountName",
-          "AttributeType": "S"
-        }
-      },
-      "NonKeyAttributes": [
-        {
-          "AttributeName": "AccountId",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "Followers",
-          "AttributeType": "SS"
-        }
-      ],
-      "TableData": [
-        {
-          "AccountName": {
-            "S": "dummy-account"
-          },
-          "AccountId": {
-            "S": "dummy"
-          },
-          "Followers": {
-            "SS": [
-              "dummy-account"
-            ]
-          }
-        }
-      ],
-      "DataAccess": {
-        "MySql": {}
-      },
-      "BillingMode": "PROVISIONED",
-      "ProvisionedCapacitySettings": {
-        "ProvisionedThroughput": {
-          "ReadCapacityUnits": 5,
-          "WriteCapacityUnits": 5
-        },
-        "AutoScalingRead": {
-          "ScalableTargetRequest": {
-            "MinCapacity": 1,
-            "MaxCapacity": 10,
-            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
-          },
-          "ScalingPolicyConfiguration": {
-            "TargetValue": 70
-          }
-        },
-        "AutoScalingWrite": {
-          "ScalableTargetRequest": {
-            "MinCapacity": 1,
-            "MaxCapacity": 10,
-            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
-          },
-          "ScalingPolicyConfiguration": {
-            "TargetValue": 70
-          }
-        }
-      }
-    },
     {
       "TableName": "Posts",
       "KeyAttributes": {
@@ -87,12 +23,30 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "PostURL",
+          "AttributeName": "AccountName",
           "AttributeType": "S"
         },
         {
           "AttributeName": "Commenters",
           "AttributeType": "SS"
+        },
+        {
+          "AttributeName": "PostURL",
+          "AttributeType": "S"
+        }
+      ],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "AccountIdIndex",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "AccountId",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
         }
       ],
       "TableData": [
@@ -103,13 +57,16 @@
           "AccountId": {
             "S": "dummy"
           },
-          "PostURL": {
+          "AccountName": {
             "S": "dummy"
           },
           "Commenters": {
             "SS": [
               "dummy-account"
             ]
+          },
+          "PostURL": {
+            "S": "dummy"
           }
         }
       ],
@@ -154,11 +111,11 @@
       },
       "NonKeyAttributes": [
         {
-          "AttributeName": "Account",
+          "AttributeName": "AccountId",
           "AttributeType": "S"
         },
         {
-          "AttributeName": "PostId",
+          "AttributeName": "AccountName",
           "AttributeType": "S"
         },
         {
@@ -166,7 +123,7 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "Follows",
+          "AttributeName": "PostId",
           "AttributeType": "S"
         },
         {
@@ -174,8 +131,26 @@
           "AttributeType": "S"
         },
         {
+          "AttributeName": "PostOwner",
+          "AttributeType": "S"
+        },
+        {
           "AttributeName": "Timestamp",
           "AttributeType": "N"
+        }
+      ],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "PostIdIndex",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "PostId",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
         }
       ],
       "TableData": [
@@ -183,20 +158,90 @@
           "UUID": {
             "S": "dummy"
           },
-          "Account": {
+          "AccountId": {
             "S": "dummy-account"
           },
-          "PostId": {
+          "AccountName": {
             "S": "dummy"
           },
           "Content": {
             "S": "dummy"
           },
-          "Follows": {
+          "PostId": {
             "S": "dummy-account"
           },
           "PostURL": {
             "S": "dummy"
+          },
+          "PostOwner": {
+            "S": "dummy-account"
+          },
+          "Timestamp": {
+            "N": "0"
+          }
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PROVISIONED",
+      "ProvisionedCapacitySettings": {
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "AutoScalingRead": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        },
+        "AutoScalingWrite": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        }
+      }
+    },
+    {
+      "TableName": "Followers",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "AccountId",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "AccountName",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Followers",
+          "AttributeType": "SS"
+        }
+      ],
+      "TableData": [
+        {
+          "AccountId": {
+            "S": "dummy"
+          },
+          "AccountName": {
+            "S": "dummy-account"
+          },
+          "Followers": {
+            "SS": [
+              "dummy-account"
+            ]
           }
         }
       ],
