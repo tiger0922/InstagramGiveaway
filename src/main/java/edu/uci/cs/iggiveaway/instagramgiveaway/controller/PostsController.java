@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 
+import java.util.List;
+
 @RestController
 public class PostsController {
     @Autowired
@@ -19,5 +21,10 @@ public class PostsController {
     @GetMapping("/posts/{postid}")
     public Post getComment(@PathVariable String postid) {
         return PostsDao.getItem(enhancedClient, postid);
+    }
+
+    @GetMapping("/posts/account-id/{accountId}")
+    public List<Post> getPostByAccountId(@PathVariable String accountId){
+        return PostsDao.queryAccountId(enhancedClient, accountId);
     }
 }

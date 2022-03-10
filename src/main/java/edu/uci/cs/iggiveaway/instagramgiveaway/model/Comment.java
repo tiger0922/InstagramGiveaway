@@ -3,13 +3,16 @@ package edu.uci.cs.iggiveaway.instagramgiveaway.model;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSecondaryPartitionKey;
 
 @DynamoDbBean
 public class Comment {
     private String uuid;
-    private String follows;
-    private String account;
+    private String postOwner;
+    private String accountId;
+    private String accountName;
     private String content;
+    private String postId;
     private String postURL;
     private int timestamp;
 
@@ -17,11 +20,13 @@ public class Comment {
         // Default constructor is required by AWS DynamoDB SDK
     }
 
-    public Comment(String uuid, String follows, String account, String content, String postURL, int timestamp) {
+    public Comment(String uuid, String postOwner, String accountId, String accountName, String content, String postURL, String postId, int timestamp) {
         this.uuid = uuid;
-        this.follows = follows;
+        this.postOwner = postOwner;
         this.postURL = postURL;
-        this.account = account;
+        this.accountId = accountId;
+        this.accountName = accountName;
+        this.postId = postId;
         this.content = content;
         this.timestamp = timestamp;
     }
@@ -35,12 +40,12 @@ public class Comment {
         this.uuid = uuid;
     }
 
-    @DynamoDbAttribute("Follows")
-    public String getFollows() {
-        return follows;
+    @DynamoDbAttribute("PostOwner")
+    public String getPostOwner() {
+        return postOwner;
     }
-    public void setFollows(String follows) {
-        this.follows = follows;
+    public void setPostOwner(String postOwner) {
+        this.postOwner = postOwner;
     }
 
     @DynamoDbAttribute("PostURL")
@@ -51,12 +56,29 @@ public class Comment {
         this.postURL = postURL;
     }
 
-    @DynamoDbAttribute("Account")
-    public String getAccount() {
-        return account;
+    @DynamoDbSecondaryPartitionKey(indexNames = "PostIdIndex")
+    @DynamoDbAttribute("PostId")
+    public String getPostId() {
+        return postId;
     }
-    public void setAccount(String account) {
-        this.account = account;
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
+    @DynamoDbAttribute("AccountId")
+    public String getAccountId() {
+        return accountId;
+    }
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    @DynamoDbAttribute("AccountName")
+    public String getAccountName() {
+        return accountName;
+    }
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     @DynamoDbAttribute("Content")

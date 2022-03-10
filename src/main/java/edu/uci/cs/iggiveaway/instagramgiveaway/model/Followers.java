@@ -23,22 +23,22 @@ public class Followers {
     }
 
     @DynamoDbPartitionKey
-    @DynamoDbAttribute("AccountName")
-    public String getAccountName() {
-        return accountName;
-    };
-
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
-    }
-
     @DynamoDbAttribute("AccountId")
     public String getAccountId() {
         return accountId;
-    }
+    };
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    @DynamoDbAttribute("AccountName")
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     @DynamoDbAttribute("Followers")
