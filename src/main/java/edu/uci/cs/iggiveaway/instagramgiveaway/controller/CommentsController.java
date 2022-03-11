@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @RestController
@@ -29,5 +31,13 @@ public class CommentsController {
     @GetMapping("/comments/post-id/{postId}")
     public List<Comment> getCommentsByPostId(@PathVariable String postId){
         return CommentsDao.queryPostId(enhancedClient, postId);
+    }
+
+    @GetMapping("/comments/post-id/{postId}/pick")
+    public Comment pickCommentsByPostId(@PathVariable String postId){
+        List<Comment> result = CommentsDao.queryPostId(enhancedClient, postId);
+        Random rand = new Random();
+        int x = rand.nextInt(result.size());
+        return result.get(x);
     }
 }
