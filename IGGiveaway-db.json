@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "Min-Han Tsai",
     "DateCreated": "Feb 07, 2022, 04:04 PM",
-    "DateLastModified": "Mar 09, 2022, 09:46 PM",
+    "DateLastModified": "Mar 10, 2022, 05:01 PM",
     "Description": "Database for instagram giveaways",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -58,7 +58,7 @@
             "S": "dummy"
           },
           "AccountName": {
-            "S": "dummy"
+            "S": "dummy-account"
           },
           "Commenters": {
             "SS": [
@@ -105,15 +105,15 @@
       "TableName": "Comments",
       "KeyAttributes": {
         "PartitionKey": {
-          "AttributeName": "UUID",
-          "AttributeType": "S"
-        }
-      },
-      "NonKeyAttributes": [
-        {
           "AttributeName": "AccountId",
           "AttributeType": "S"
         },
+        "SortKey": {
+          "AttributeName": "Timestamp",
+          "AttributeType": "N"
+        }
+      },
+      "NonKeyAttributes": [
         {
           "AttributeName": "AccountName",
           "AttributeType": "S"
@@ -133,10 +133,6 @@
         {
           "AttributeName": "PostOwner",
           "AttributeType": "S"
-        },
-        {
-          "AttributeName": "Timestamp",
-          "AttributeType": "N"
         }
       ],
       "GlobalSecondaryIndexes": [
@@ -155,29 +151,26 @@
       ],
       "TableData": [
         {
-          "UUID": {
+          "AccountId": {
             "S": "dummy"
           },
-          "AccountId": {
-            "S": "dummy-account"
+          "Timestamp": {
+            "N": "0"
           },
           "AccountName": {
-            "S": "dummy"
+            "S": "dummy-account"
           },
           "Content": {
             "S": "dummy"
           },
           "PostId": {
-            "S": "dummy-account"
+            "S": "dummy"
           },
           "PostURL": {
             "S": "dummy"
           },
           "PostOwner": {
             "S": "dummy-account"
-          },
-          "Timestamp": {
-            "N": "0"
           }
         }
       ],

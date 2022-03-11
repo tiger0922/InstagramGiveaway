@@ -15,7 +15,7 @@ import java.util.List;
 import static software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional.keyEqualTo;
 
 public class CommentsDao {
-    public static Comment getItem(DynamoDbEnhancedClient enhancedClient, String keyValue) {
+    public static Comment getItem(DynamoDbEnhancedClient enhancedClient, String keyValue, Integer sortKeyValue) {
         try {
             //Create a DynamoDbTable object
             DynamoDbTable<Comment> mappedTable = enhancedClient.table("Comments", TableSchema.fromBean(Comment.class));
@@ -23,12 +23,13 @@ public class CommentsDao {
             //Create a KEY object
             Key key = Key.builder()
                     .partitionValue(keyValue)
+                    .sortValue(sortKeyValue)
                     .build();
 
             // Get the item by using the key
             Comment result = mappedTable.getItem(key);
             if (result == null) return null;
-            System.out.println("The UUID value is "+result.getUuid());
+            System.out.println("The accountId and timestamp are "+result.getAccountId() + " " + result.getTimestamp());
             return result;
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());

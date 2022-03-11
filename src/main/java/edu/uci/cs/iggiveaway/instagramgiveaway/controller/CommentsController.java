@@ -18,14 +18,12 @@ public class CommentsController {
 
     @PostMapping("/comments")
     public void newComments(@RequestBody Comment comments) {
-        UUID uuid = UUID.randomUUID();
-        comments.setUuid(uuid.toString());
         CommentsDao.putItem(enhancedClient, comments);
     }
 
-    @GetMapping("/comments/{uuid}")
-    public Comment getComment(@PathVariable String uuid) {
-        return CommentsDao.getItem(enhancedClient, uuid);
+    @GetMapping("/comments")
+    public Comment getComment(@RequestParam String account_id, @RequestParam Integer timestamp) {
+        return CommentsDao.getItem(enhancedClient, account_id, timestamp);
     }
 
     @GetMapping("/comments/post-id/{postId}")
