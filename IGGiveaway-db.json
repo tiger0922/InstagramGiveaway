@@ -1,0 +1,273 @@
+{
+  "ModelName": "IGGiveaway-db",
+  "ModelMetadata": {
+    "Author": "Min-Han Tsai",
+    "DateCreated": "Feb 07, 2022, 04:04 PM",
+    "DateLastModified": "Mar 10, 2022, 05:01 PM",
+    "Description": "Database for instagram giveaways",
+    "AWSService": "Amazon DynamoDB",
+    "Version": "3.0"
+  },
+  "DataModel": [
+    {
+      "TableName": "Posts",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "PostId",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "AccountId",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "AccountName",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Commenters",
+          "AttributeType": "SS"
+        },
+        {
+          "AttributeName": "PostURL",
+          "AttributeType": "S"
+        }
+      ],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "AccountIdIndex",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "AccountId",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        }
+      ],
+      "TableData": [
+        {
+          "PostId": {
+            "S": "dummy"
+          },
+          "AccountId": {
+            "S": "dummy"
+          },
+          "AccountName": {
+            "S": "dummy-account"
+          },
+          "Commenters": {
+            "SS": [
+              "dummy-account"
+            ]
+          },
+          "PostURL": {
+            "S": "dummy"
+          }
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PROVISIONED",
+      "ProvisionedCapacitySettings": {
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "AutoScalingRead": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        },
+        "AutoScalingWrite": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        }
+      }
+    },
+    {
+      "TableName": "Comments",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "AccountId",
+          "AttributeType": "S"
+        },
+        "SortKey": {
+          "AttributeName": "Timestamp",
+          "AttributeType": "N"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "AccountName",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Content",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "PostId",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "PostURL",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "PostOwner",
+          "AttributeType": "S"
+        }
+      ],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "PostIdIndex",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "PostId",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        }
+      ],
+      "TableData": [
+        {
+          "AccountId": {
+            "S": "dummy"
+          },
+          "Timestamp": {
+            "N": "0"
+          },
+          "AccountName": {
+            "S": "dummy-account"
+          },
+          "Content": {
+            "S": "dummy"
+          },
+          "PostId": {
+            "S": "dummy"
+          },
+          "PostURL": {
+            "S": "dummy"
+          },
+          "PostOwner": {
+            "S": "dummy-account"
+          }
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PROVISIONED",
+      "ProvisionedCapacitySettings": {
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "AutoScalingRead": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        },
+        "AutoScalingWrite": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        }
+      }
+    },
+    {
+      "TableName": "Followers",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "AccountId",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "AccountName",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Followers",
+          "AttributeType": "SS"
+        }
+      ],
+      "TableData": [
+        {
+          "AccountId": {
+            "S": "dummy"
+          },
+          "AccountName": {
+            "S": "dummy-account"
+          },
+          "Followers": {
+            "SS": [
+              "dummy-account"
+            ]
+          }
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PROVISIONED",
+      "ProvisionedCapacitySettings": {
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "AutoScalingRead": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        },
+        "AutoScalingWrite": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-package edu.uci.cs.iggiveaway.instagramgiveaway;
+package edu.uci.cs.iggiveaway.instagramgiveaway.model;
 
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class DynamoDbDAO {
+public class DynamoDbDao {
 
     public static void getItem(DynamoDbClient ddb,String tableName, HashMap<String, AttributeValue> itemKey) {
 
