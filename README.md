@@ -12,3 +12,6 @@
 ### DynamoDB enhanced usage
 - https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-dynamodb-enhanced.html
 - https://github.com/aws/aws-sdk-java-v2/blob/master/services-custom/dynamodb-enhanced/README.md
+
+### API documentation
+- https://documenter.getpostman.com/view/12247254/UVsHV8h7
